@@ -2,7 +2,6 @@
 .gitignore
 .DS_Store
 *.log
-*.lock
 node_modules/
 .github/
 src/

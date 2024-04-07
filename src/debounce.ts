@@ -130,6 +130,3 @@ export function throttle(callback: () => unknown, limit?: number, options?: Debo
 		...options
 	});
 }
-
-
-export default debounce;
