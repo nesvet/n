@@ -1,6 +1,6 @@
 {
 	"name": "@nesvet/n",
-	"version": "1.0.32",
+	"version": "1.0.33",
 	"description": "Various utilities",
 	"type": "module",
 	"main": "dist/index.js",
@@ -11,6 +11,7 @@
 		"./removeOne": "./dist/array/removeOne.js",
 		"./removeAll": "./dist/array/removeAll.js",
 		"./deepClone": "./dist/object/deepClone.js",
+		"./isEmpty": "./dist/object/isEmpty.js",
 		"./toStringWithSign": "./dist/number/toStringWithSign.js",
 		"./areArraysEqual": "./dist/areArraysEqual.js",
 		"./benchmark": "./dist/benchmark.js",
@@ -40,6 +41,7 @@
 		"benchmark",
 		"debounce",
 		"deepClone",
+		"isEmpty",
 		"enumerate",
 		"howmuch",
 		"noop",
