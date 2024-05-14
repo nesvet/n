@@ -1,6 +1,6 @@
 {
 	"name": "@nesvet/n",
-	"version": "1.0.42",
+	"version": "1.0.55",
 	"description": "Various utilities",
 	"type": "module",
 	"main": "dist/index.js",
@@ -11,7 +11,8 @@
 		"./removeOne": "./dist/array/removeOne.js",
 		"./removeAll": "./dist/array/removeAll.js",
 		"./intersection": "./dist/array/intersection.js",
-		"./without": "./dist/array/intersectionwithout",
+		"./unique": "./dist/array/unique.js",
+		"./without": "./dist/array/without.js",
 		"./deepClone": "./dist/object/deepClone.js",
 		"./getPath": "./dist/object/getPath.js",
 		"./setPath": "./dist/object/setPath.js",
@@ -64,6 +65,7 @@
 		"uid",
 		"unflat",
 		"when",
+		"unique",
 		"without"
 	],
 	"author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
