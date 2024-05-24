@@ -9,5 +9,5 @@ $ npm install @nesvet/n
 Or
 
 ```sh
-$ yarn add @nesvet/n
+$ bun add @nesvet/n
 ```
