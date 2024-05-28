@@ -1,4 +1,5 @@
 export * from "./add.js";
+export * from "./chunks.js";
 export * from "./intersection.js";
 export * from "./removeAll.js";
 export * from "./removeOne.js";

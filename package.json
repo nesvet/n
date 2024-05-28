@@ -1,6 +1,6 @@
 {
   "name": "@nesvet/n",
-  "version": "1.0.57",
+  "version": "1.0.58",
   "description": "Various utilities",
   "type": "module",
   "main": "dist/index.js",
@@ -8,6 +8,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./add": "./dist/array/add.js",
+    "./chunks": "./dist/array/chunks.js",
     "./removeOne": "./dist/array/removeOne.js",
     "./removeAll": "./dist/array/removeAll.js",
     "./intersection": "./dist/array/intersection.js",
@@ -32,7 +33,7 @@
     "./unflat": "./dist/unflat.js",
     "./when": "./dist/when.js"
   },
-  "packageManager": "bun@1.1.9",
+  "packageManager": "bun@1.1.10",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p ."
@@ -47,6 +48,7 @@
     "areArraysEqual",
     "assignPath",
     "benchmark",
+    "chunks",
     "debounce",
     "deepClone",
     "deletePath",
@@ -72,6 +74,6 @@
   "license": "MIT",
   "devDependencies": {
     "@nesvet/eslint-config": "^1",
-    "typescript": "^5.2.2"
+    "typescript": "^5"
   }
 }
