@@ -1,5 +1,5 @@
 export class Err extends Error {
-	constructor(message: string, tag: string | null = null, payload: object) {
+	constructor(message: string, tag: string | null = null, payload?: object) {
 		super(message);
 		
 		if (tag && typeof tag == "object") {
