@@ -1,6 +1,6 @@
 {
   "name": "@nesvet/n",
-  "version": "1.0.58",
+  "version": "1.0.59",
   "description": "Various utilities",
   "type": "module",
   "main": "dist/index.js",
@@ -25,6 +25,7 @@
     "./benchmark": "./dist/benchmark.js",
     "./debounce": "./dist/debounce.js",
     "./enumerate": "./dist/enumerate.js",
+    "./Err": "./dist/Err.js",
     "./howmuch": "./dist/howmuch.js",
     "./noop": "./dist/noop.js",
     "./random": "./dist/random.js",
@@ -56,6 +57,7 @@
     "isEmpty",
     "intersection",
     "enumerate",
+	"error",
     "howmuch",
     "noop",
     "random",
