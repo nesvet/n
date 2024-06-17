@@ -1,4 +1,4 @@
-export function howmuch(number: number | [], one: string, two: string, five: string | boolean, shouldPrintNumber = true) {
+export function howmuch(number: [] | number, one: string, two: string, five: boolean | string, shouldPrintNumber = true) {
 	if (Array.isArray(number))
 		number = number.length;
 	
@@ -7,7 +7,7 @@ export function howmuch(number: number | [], one: string, two: string, five: str
 		five = two;
 	}
 	
-	// eslint-disable-next-line no-irregular-whitespace
+	
 	return (shouldPrintNumber ? `${number} ` : "") + howmuch.raw(number, one, two, five);
 }
 

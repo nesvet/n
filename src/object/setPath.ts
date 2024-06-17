@@ -24,4 +24,6 @@ export function setPath(object: Host, path: string, value: unknown): unknown {
 		
 		return value;
 	}
+	
+	return null;
 }

@@ -20,4 +20,6 @@ export function deletePath(object: Host, path: string) {
 		
 		return delete object[path];
 	}
+	
+	return null;
 }

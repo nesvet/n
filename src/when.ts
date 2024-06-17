@@ -1,10 +1,10 @@
 type WhenOptions = {
-	interval?: number,
-	timeout?: number | null,
-	context?: unknown
+	interval?: number;
+	timeout?: null | number;
+	context?: unknown;
 };
 
-export function when(check: (() => unknown), callback: ((result: unknown) => unknown) | WhenOptions | undefined, options: WhenOptions = {}) {
+export function when(check: (() => unknown), callback: ((result: unknown) => unknown) | undefined | WhenOptions, options: WhenOptions = {}) {
 	if (typeof callback == "object") {
 		options = callback;
 		callback = undefined;
@@ -30,6 +30,7 @@ export function when(check: (() => unknown), callback: ((result: unknown) => unk
 			return true;
 		}
 		
+		return false;
 	}
 	
 	return new Promise((resolve, reject) => {
@@ -57,6 +58,6 @@ export function when(check: (() => unknown), callback: ((result: unknown) => unk
 		
 		clearInterval(checkInterval);
 		
-		return Promise.reject(new Error("timeout"));
+		throw new Error("timeout");
 	});
 }

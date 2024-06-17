@@ -1,12 +1,13 @@
 import { noop } from "./noop.js";
 
 
-type FunctionOrBoolean = boolean | (() => unknown);
+type FunctionOrBoolean = (() => unknown) | boolean;
 type NumberOrUndefined = number | undefined;
-type DebounceOptions = { leading?: FunctionOrBoolean, maxWait?: number, trailing?: FunctionOrBoolean };
+type DebounceOptions = { leading?: FunctionOrBoolean; maxWait?: number; trailing?: FunctionOrBoolean };
 
 export function debounce(callback: () => unknown, limit = 0, options: DebounceOptions = {}) {
-	let { leading = false, maxWait = Infinity, trailing = true } = options;
+	let { leading = false, trailing = true } = options;
+	const { maxWait = Infinity } = options;
 	
 	let timeout: NumberOrUndefined;
 	let maxWaitTimeout: NumberOrUndefined;
@@ -37,7 +38,7 @@ export function debounce(callback: () => unknown, limit = 0, options: DebounceOp
 		
 	};
 	
-	const maxWaitExpired = isFinite(maxWait) ? () => {
+	const maxWaitExpired = Number.isFinite(maxWait) ? () => {
 		
 		if (final === run)
 			final = false;
@@ -110,8 +111,8 @@ export function debounce(callback: () => unknown, limit = 0, options: DebounceOp
 	return debounced;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-debounce.noop = Object.assign(() => {}, {
+
+debounce.noop = Object.assign(() => { /**/ }, {
 	callback: noop,
 	promise: Object.assign(Promise.resolve(), {
 		isResolved: true

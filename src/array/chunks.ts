@@ -1,3 +1,3 @@
 export function chunks<I>(array: I[], size: number) {
-	return Array(Math.ceil(array.length / size)).fill(undefined).map((_, i) => array.slice(i * size, (i + 1) * size));
+	return Array.from({ length: Math.ceil(array.length / size) }).fill(null).map((_, i) => array.slice(i * size, (i + 1) * size));
 }

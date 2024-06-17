@@ -4,9 +4,9 @@ export function enumerate(items: string[], and = "и") {
 	return (
 		items.length > 1 ?
 			[
-				items.slice(0, items.length - 1).join(", "),
+				items.slice(0, -1).join(", "),
 				items.at(-1)
-			].join(` ${and} `) :// eslint-disable-line no-irregular-whitespace
+			].join(` ${and} `) :
 			items.length ?
 				items[0] :
 				""
