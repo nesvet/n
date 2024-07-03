@@ -1,11 +1,27 @@
 import { noop } from "./noop.js";
 
 
+type Callback<Result> = (...args: unknown[]) => Result;
 type FunctionOrBoolean = (() => unknown) | boolean;
+type Options = { leading?: FunctionOrBoolean; maxWait?: number; trailing?: FunctionOrBoolean };
 type NumberOrUndefined = number | undefined;
-type DebounceOptions = { leading?: FunctionOrBoolean; maxWait?: number; trailing?: FunctionOrBoolean };
 
-export function debounce(callback: () => unknown, limit = 0, options: DebounceOptions = {}) {
+type DebouncedFunction<Result> = {
+	(this: unknown, ..._args: unknown[]): Promise<Result>;
+};
+
+export type Debounced<Result> = {
+	callback: Callback<Result>;
+	promise: {
+		isResolved: boolean;
+	} & Promise<unknown>;
+	resolve: (value: Result) => void;
+	run(): Promise<Result>;
+	clear(shouldRun?: boolean): Promise<void>;
+} & DebouncedFunction<Result>;
+
+
+export function debounce<Result>(callback: Callback<Result>, limit = 0, options: Options = {}) {
 	let { leading = false, trailing = true } = options;
 	const { maxWait = Infinity } = options;
 	
@@ -13,16 +29,16 @@ export function debounce(callback: () => unknown, limit = 0, options: DebounceOp
 	let maxWaitTimeout: NumberOrUndefined;
 	let end: NumberOrUndefined;
 	let context: unknown;
-	let args: [];
+	let args: unknown[];
 	let initial: FunctionOrBoolean;
 	let final: FunctionOrBoolean;
-	let result: unknown;
+	let result: Result;
 	
 	const expired = async () => {
 		
 		const n = Date.now();
 		
-		if (n >= (end as number)) {
+		if (n >= end!) {
 			timeout = undefined;
 			end = undefined;
 			clearTimeout(maxWaitTimeout);
@@ -33,7 +49,7 @@ export function debounce(callback: () => unknown, limit = 0, options: DebounceOp
 			initial = leading;
 		} else {
 			clearTimeout(timeout);
-			timeout = setTimeout(expired, (end as number) - n);
+			timeout = setTimeout(expired, end! - n);
 		}
 		
 	};
@@ -59,9 +75,9 @@ export function debounce(callback: () => unknown, limit = 0, options: DebounceOp
 		trailing = run;
 	final = trailing;
 	
-	const debounced = Object.assign(function (this: unknown, ..._args: []): Promise<unknown> {
+	const debounced: Debounced<Result> = Object.assign(function (..._args) {
 		args = _args;
-		context = this;// eslint-disable-line no-invalid-this, @typescript-eslint/no-this-alias
+		context = this;// eslint-disable-line no-invalid-this
 		
 		end = Date.now() + limit;
 		final = trailing;
@@ -88,14 +104,14 @@ export function debounce(callback: () => unknown, limit = 0, options: DebounceOp
 			});
 		
 		return debounced.promise;
-	}, {
+	} as DebouncedFunction<Result>, {
 		callback,
-		promise: Object.assign(Promise.resolve() as Promise<unknown>, {
+		promise: Object.assign(Promise.resolve(), {
 			isResolved: true
 		}),
-		resolve: noop as (value: unknown) => void,
+		resolve: noop,
 		run,
-		clear: async (shouldRun: boolean) => {
+		clear: async (shouldRun?: boolean) => {
 			
 			clearTimeout(timeout);
 			timeout = undefined;
@@ -120,10 +136,10 @@ debounce.noop = Object.assign(() => { /**/ }, {
 	resolve: noop,
 	run: noop,
 	clear: noop
-});
+}) as unknown as Debounced<void>;
 
 
-export function throttle(callback: () => unknown, limit?: number, options?: DebounceOptions) {
+export function throttle<Result>(callback: Callback<Result>, limit?: number, options?: Options) {
 	return debounce(callback, limit, {
 		maxWait: limit,
 		leading: true,
