@@ -10,6 +10,7 @@ export * from "./number/index.js";
 export * from "./object/index.js";
 export * from "./random.js";
 export * from "./sleep.js";
+export * from "./types/index.js";
 export * from "./uid.js";
 export * from "./unflat.js";
 export * from "./when.js";
