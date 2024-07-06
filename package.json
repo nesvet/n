@@ -1,6 +1,6 @@
 {
   "name": "@nesvet/n",
-  "version": "1.0.64",
+  "version": "1.0.65",
   "description": "Various utilities",
   "type": "module",
   "main": "dist/index.js",
@@ -84,6 +84,6 @@
   "author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
   "license": "MIT",
   "devDependencies": {
-    "@nesvet/eslint-config": "^2.0.21"
+    "@nesvet/eslint-config": "^2.0.22"
   }
 }
