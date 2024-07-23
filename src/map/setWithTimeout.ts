@@ -1,3 +1,8 @@
-export function setWithTimeout(map: Map<unknown, [ value: unknown, timeout: number ]>, key: unknown, value: unknown, ms: number) {
-	return map.set(key, [ value, setTimeout(() => map.delete(key), ms) ]);
+import { setup } from "./timeouts";
+
+
+export function setWithTimeout<K, V>(map: Map<K, V>, key: K, value: V, ms: number) {
+	setup(map, key, ms);
+	
+	return map.set(key, value);
 }

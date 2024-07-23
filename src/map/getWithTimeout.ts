@@ -1,7 +1,10 @@
-export function getWithTimeout(map: Map<unknown, [ value: unknown, timeout: number ]>, key: unknown) {
-	const [ value, timeout ] = map.get(key) || [];
-	clearTimeout(timeout);
-	map.delete(key);
+import { cleanup } from "./timeouts";
+
+
+export function getWithTimeout<K, V>(map: Map<K, V>, key: K) {
+	const value = map.get(key);
+	
+	cleanup(map, key);
 	
 	return value;
 }
