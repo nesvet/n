@@ -5,6 +5,7 @@ export * from "./debounce.js";
 export * from "./enumerate.js";
 export * from "./Err.js";
 export * from "./howmuch.js";
+export * from "./iterable/index.js";
 export * from "./map/index.js";
 export * from "./noop.js";
 export * from "./number/index.js";
