@@ -1,6 +1,6 @@
 {
   "name": "@nesvet/n",
-  "version": "1.0.71",
+  "version": "1.0.72",
   "description": "Various utilities",
   "type": "module",
   "main": "dist/index.js",
@@ -16,6 +16,7 @@
     "./without": "./dist/array/without.js",
     "./intersection": "./dist/iterable/intersection.js",
     "./_ids": "./dist/iterable/_ids.js",
+    "./union": "./dist/iterable/union.js",
     "./deepClone": "./dist/object/deepClone.js",
     "./getPath": "./dist/object/getPath.js",
     "./setPath": "./dist/object/setPath.js",
@@ -42,7 +43,7 @@
     "./unflat": "./dist/unflat.js",
     "./when": "./dist/when.js"
   },
-  "packageManager": "bun@1.1.20",
+  "packageManager": "bun@1.1.21",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p ."
