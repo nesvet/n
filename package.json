@@ -68,6 +68,7 @@
     "typeSafeObjectFromEntries",
     "intersection",
     "_ids",
+    "union",
     "enumerate",
     "error",
     "howmuch",
