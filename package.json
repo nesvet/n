@@ -1,6 +1,6 @@
 {
   "name": "@nesvet/n",
-  "version": "1.0.69",
+  "version": "1.0.70",
   "description": "Various utilities",
   "type": "module",
   "main": "dist/index.js",
