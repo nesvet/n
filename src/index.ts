@@ -16,6 +16,7 @@ export * from "./Err.js";
 export * from "./getAll.js";
 export * from "./getPath.js";
 export * from "./getWithTimeout.js";
+export * from "./hasAny.js";
 export * from "./howmuch.js";
 export * from "./intersection.js";
 export * from "./isEmpty.js";
