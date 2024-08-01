@@ -1,8 +1,7 @@
-
-export function deleteProps<O extends object, K extends readonly (keyof O)[]>(object: O, keys: K) {
+export function deleteProps<O extends object, K extends readonly (keyof O | number | string | symbol)[]>(object: O, keys: K) {
 	if (object) {
 		for (const key of keys)
-			delete object[key];
+			delete object[key as keyof O];
 		
 		return object as Omit<O, K[number]>;
 	}
