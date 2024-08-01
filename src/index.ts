@@ -18,6 +18,8 @@ export * from "./getPath.js";
 export * from "./getWithTimeout.js";
 export * from "./hasAny.js";
 export * from "./howmuch.js";
+export * from "./includesAll.js";
+export * from "./includesAny.js";
 export * from "./intersection.js";
 export * from "./isEmpty.js";
 export * from "./isPlain.js";
