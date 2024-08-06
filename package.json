@@ -53,7 +53,8 @@
     "./unique": "./dist/unique.js",
     "./when": "./dist/when.js",
     "./without": "./dist/without.js",
-    "./Falsey": "./dist/types/Falsey.js",
+    "./Falsy": "./dist/types/Falsy.js",
+    "./Falsey": "./dist/types/Falsy.js",
     "./StringKey": "./dist/types/StringKey.js"
   },
   "packageManager": "bun@1.1.21",
@@ -112,6 +113,7 @@
     "unique",
     "when",
     "without",
+	"Falsy",
 	"Falsey",
 	"StringKey"
   ],

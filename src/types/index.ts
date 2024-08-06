@@ -1,2 +1,2 @@
-export * from "./Falsey.js";
+export * from "./Falsy.js";
 export * from "./StringKey.js";
