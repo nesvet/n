@@ -55,6 +55,9 @@
     "./without": "./dist/without.js",
     "./Falsy": "./dist/types/Falsy.js",
     "./Falsey": "./dist/types/Falsy.js",
+    "./isTruthy": "./dist/types/isTruthy.js",
+    "./isTruly": "./dist/types/isTruthy.js",
+    "./isTruely": "./dist/types/isTruthy.js",
     "./StringKey": "./dist/types/StringKey.js"
   },
   "packageManager": "bun@1.1.21",
@@ -115,6 +118,9 @@
     "without",
 	"Falsy",
 	"Falsey",
+	"isTruthy",
+	"isTruly",
+	"isTruely",
 	"StringKey"
   ],
   "author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
