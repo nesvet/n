@@ -1,4 +1,4 @@
-import { cleanup } from "./timeouts";
+import { cleanup } from "./timeouts.js";
 
 
 export function getWithTimeout<K, V>(map: Map<K, V>, key: K) {
