@@ -34,6 +34,7 @@ export * from "./setPath.js";
 export * from "./setWithTimeout.js";
 export * from "./sleep.js";
 export * from "./sort.js";
+export * from "./StatefulPromise.js";
 export * from "./toStringWithSign.js";
 export * from "./types/index.js";
 export * from "./typeSafeObjectEntries.js";
