@@ -8,7 +8,7 @@ const nativesMap = new WeakMap<StatefulPromise<any>, { resolve: Resolve<any>; re
 
 
 export class StatefulPromise<T> extends Promise<T> {
-	constructor(executor: (resolve: Resolve<T>, reject: Reject<T>) => void) {
+	constructor(executor?: (resolve: Resolve<T>, reject: Reject<T>) => void) {
 		
 		let nativeResolve: Resolve<T>;
 		let nativeReject: Reject<T>;
