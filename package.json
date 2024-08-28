@@ -59,7 +59,7 @@
     "./isTruthy": "./dist/types/isTruthy.js",
     "./isTruly": "./dist/types/isTruthy.js",
     "./isTruely": "./dist/types/isTruthy.js",
-    "./StringKey": "./dist/types/StringKey.js"
+    "./Truthy": "./dist/types/Truthy.js"
   },
   "packageManager": "bun@1.1.21",
   "scripts": {
@@ -118,12 +118,8 @@
     "unique",
     "when",
     "without",
-	"Falsy",
-	"Falsey",
-	"isTruthy",
-	"isTruly",
-	"isTruely",
-	"StringKey"
+    "Truthy",
+    "Truely"
   ],
   "author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
   "license": "MIT",
