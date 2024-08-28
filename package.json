@@ -59,9 +59,10 @@
     "./isTruthy": "./dist/types/isTruthy.js",
     "./isTruly": "./dist/types/isTruthy.js",
     "./isTruely": "./dist/types/isTruthy.js",
+    "./StringKey": "./dist/types/StringKey.js",
     "./Truthy": "./dist/types/Truthy.js"
   },
-  "packageManager": "bun@1.1.21",
+  "packageManager": "bun@1.1.26",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p ."
@@ -91,8 +92,8 @@
     "getWithTimeout",
     "hasAny",
     "howmuch",
-	"includesAll",
-	"includesAny",
+    "includesAll",
+    "includesAny",
     "intersection",
     "isEmpty",
     "isPlain",
@@ -118,13 +119,19 @@
     "unique",
     "when",
     "without",
+    "Falsy",
+    "Falsey",
+    "isTruthy",
+    "isTruly",
+    "isTruely",
+    "StringKey",
     "Truthy",
     "Truely"
   ],
   "author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
   "license": "MIT",
   "devDependencies": {
-    "@nesvet/eslint-config": "^2.0.24",
+    "@nesvet/eslint-config": "^2.0.25",
     "typescript": "^5.5.4"
   }
 }
