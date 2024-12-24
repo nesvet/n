@@ -1,5 +1,5 @@
-import { isEmpty } from "./isEmpty";
-import { isPlain } from "./isPlain";
+import { isEmpty } from "./isEmpty.js";
+import { isPlain } from "./isPlain.js";
 
 
 type TheObject = Record<string, unknown>;
