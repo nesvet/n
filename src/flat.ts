@@ -5,7 +5,7 @@ import { isPlain } from "./isPlain";
 type TheObject = Record<string, unknown>;
 
 
-export function flat(object: TheObject, strict = true, prefix: string): TheObject {
+export function flat(object: TheObject, strict = true, prefix?: string): TheObject {
 	const entries = Object.entries(object);
 	
 	for (let i = 0; i < entries.length; i++) {
