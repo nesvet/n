@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 type Value<T> = PromiseLike<T> | T;
-type Resolve<T> = (this: StatefulPromise<T>, value: Value<T>) => void;
-type Reject<T> = (this: StatefulPromise<T>, reason?: any) => void;
+type Resolve<T> = (value: Value<T>) => void;
+type Reject = (reason?: any) => void;
 
-const nativesMap = new WeakMap<StatefulPromise<any>, { resolve: Resolve<any>; reject: Reject<any> }>();
+const nativesMap = new WeakMap<StatefulPromise<any>, { resolve: Resolve<any>; reject: Reject }>();
 
 
 export class StatefulPromise<T> extends Promise<T> {
-	constructor(executor?: (resolve: Resolve<T>, reject: Reject<T>) => void) {
+	constructor(executor?: (resolve: Resolve<T>, reject: Reject) => void) {
 		
 		let nativeResolve: Resolve<T>;
-		let nativeReject: Reject<T>;
+		let nativeReject: Reject;
 		
 		super((resolve, reject) => {
 			nativeResolve = resolve;
@@ -21,7 +21,7 @@ export class StatefulPromise<T> extends Promise<T> {
 		
 		nativesMap.set(this, { resolve: nativeResolve!, reject: nativeReject! });
 		
-		executor?.(this.resolve.bind(this), this.reject.bind(this));
+		executor?.(this.resolve, this.reject);
 		
 	}
 	
@@ -33,7 +33,7 @@ export class StatefulPromise<T> extends Promise<T> {
 	
 	result?: any;
 	
-	resolve(value: Value<T>) {
+	resolve = (value: Value<T>) => {
 		
 		if (this.isPending) {
 			this.isPending = false;
@@ -49,9 +49,9 @@ export class StatefulPromise<T> extends Promise<T> {
 			}
 		}
 		
-	}
+	};
 	
-	reject(reason?: any) {
+	reject = (reason?: any) => {
 		
 		if (this.isPending) {
 			this.isPending = false;
@@ -67,6 +67,6 @@ export class StatefulPromise<T> extends Promise<T> {
 			}
 		}
 		
-	}
+	};
 	
 }
