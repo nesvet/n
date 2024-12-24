@@ -13,6 +13,7 @@ export * from "./EmptyArray.js";
 export * from "./EmptySet.js";
 export * from "./enumerate.js";
 export * from "./Err.js";
+export * from "./flat.js";
 export * from "./getAll.js";
 export * from "./getPath.js";
 export * from "./getWithTimeout.js";
