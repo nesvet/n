@@ -1,4 +1,4 @@
-import { Host, SubHost } from "./types";
+import { Host, SubHost } from "./types.js";
 
 
 export function setPath(object: Host, path: string, value: unknown): unknown {
@@ -8,7 +8,7 @@ export function setPath(object: Host, path: string, value: unknown): unknown {
 		if (penultIndex >= 0) {
 			let host = object;
 			
-			for (let i = 0, subPath: string, subHost: SubHost; i <= penultIndex; i++) {
+			for (let i = 0, subHost: SubHost, subPath: string; i <= penultIndex; i++) {
 				subPath = pathArray[i];
 				subHost = host[subPath];
 				if (!subHost || !(typeof subHost == "object" || typeof subHost == "function"))

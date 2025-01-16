@@ -1,4 +1,4 @@
-import { Host, SubHost } from "./types";
+import { Host, SubHost } from "./types.js";
 
 
 export function getPath(object: Host, path: string): unknown {

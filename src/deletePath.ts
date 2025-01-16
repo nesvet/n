@@ -1,4 +1,4 @@
-import { Host } from "./types";
+import { Host } from "./types.js";
 
 
 export function deletePath(object: Host, path: string) {

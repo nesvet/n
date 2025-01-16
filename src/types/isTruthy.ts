@@ -1,4 +1,4 @@
-import { Falsy } from "./Falsy";
+import { Falsy } from "./Falsy.js";
 
 
 export function isTruthy<T>(value: Falsy | T): value is T {
