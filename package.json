@@ -69,7 +69,7 @@
     "./StringKey": "./dist/types/StringKey.js",
     "./Truthy": "./dist/types/Truthy.js"
   },
-  "packageManager": "bun@1.1.43",
+  "packageManager": "bun@1.1.45",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p ."
@@ -145,7 +145,7 @@
   "author": "Eugene Nesvetaev <dev@nesvet.dev> (https://nesvet.dev/)",
   "license": "MIT",
   "devDependencies": {
-    "@nesvet/eslint-config": "^2.0.34",
+    "@nesvet/eslint-config": "^2.0.41",
     "typescript": "^5.7.3"
   }
 }
