@@ -1,25 +1,29 @@
-import { Host } from "./types.js";
-
-
-export function deletePath(object: Host, path: string) {
-	if (path) {
-		const pathArray = path.split(".");
-		const penultIndex = pathArray.length - 2;
-		if (penultIndex >= 0) {
-			let host = object;
+export function deletePath<
+	T extends Record<string, unknown>,
+	K extends Extract<keyof T, string>
+>(object: T, path: K): boolean {
+	if (object && path) {
+		if (path.includes(".")) {
+			const keys = path.split(".");
+			let subObject: any = object; // eslint-disable-line @typescript-eslint/no-explicit-any
 			
-			for (let i = 0, subPath; i <= penultIndex; i++) {
-				subPath = pathArray[i];
-				host = host[subPath] as Host;
-				if (!host || !(typeof host == "object" || typeof host == "function"))
+			for (let i = 0; i < keys.length - 1; i++) {
+				const key = keys[i];
+				const subObjectValue = subObject[key];
+				
+				if (subObjectValue && typeof subObjectValue === "object")
+					subObject = subObjectValue;
+				else
 					return false;
 			}
 			
-			return delete host[pathArray[penultIndex + 1]];
+			const lastKey = keys.at(-1)!;
+			
+			return lastKey in subObject && delete subObject[lastKey];
 		}
 		
-		return delete object[path];
+		return path in object && delete object[path];
 	}
 	
-	return null;
+	return false;
 }

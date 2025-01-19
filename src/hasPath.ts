@@ -1,7 +1,9 @@
 import { getPath } from "./getPath.js";
-import { Host } from "./types.js";
 
 
-export function hasPath(object: Host, path: string) {
+export function hasPath<
+	T extends Record<string, unknown>,
+	K extends Extract<keyof T, string>
+>(object: T, path: K) {
 	return Boolean(object && path) && getPath(object, path) !== undefined;
 }

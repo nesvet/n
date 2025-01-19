@@ -1,28 +1,27 @@
-import { Host, SubHost } from "./types.js";
-
-
-export function setPath(object: Host, path: string, value: unknown): unknown {
-	if (path) {
-		const pathArray = path.split(".");
-		const penultIndex = pathArray.length - 2;
-		if (penultIndex >= 0) {
-			let host = object;
+export function setPath<
+	T extends Record<string, unknown>,
+	K extends Extract<keyof T, string>,
+	V
+>(object: T, path: K, value: V): null | V {
+	if (object && path) {
+		if (path.includes(".")) {
+			const keys = path.split(".");
+			let subObject: any = object;// eslint-disable-line @typescript-eslint/no-explicit-any
 			
-			for (let i = 0, subHost: SubHost, subPath: string; i <= penultIndex; i++) {
-				subPath = pathArray[i];
-				subHost = host[subPath];
-				if (!subHost || !(typeof subHost == "object" || typeof subHost == "function"))
-					subHost =
-						host[subPath] =
-							{};
-				host = subHost as Host;
+			for (let i = 0; i < keys.length - 1; i++) {
+				const key = keys[i];
+				const subObjectValue = subObject[key];
+				
+				subObject =
+					(subObjectValue && typeof subObjectValue == "object") ?
+						subObjectValue :
+						(subObject[key] = {});
 			}
 			
-			host[pathArray[penultIndex + 1]] = value;
-		} else
-			object[path] = value;
+			return (subObject[keys.at(-1)!] = value);
+		}
 		
-		return value;
+		return (object[path] = value as T[K]) as V;
 	}
 	
 	return null;

@@ -1,10 +1,23 @@
-import { Host, SubHost } from "./types.js";
-
-
-export function getPath(object: Host, path: string): unknown {
-	return path ?
-		~path.indexOf(".") ?
-			path.split(".").reduce((subObject: SubHost, key: string) => (subObject as Host)?.[key], object) :
-			object[path] :
-		object;
+export function getPath<
+	T extends Record<string, unknown>,
+	K extends Extract<keyof T, string>
+>(object: T, path: K): unknown {
+	if (path) {
+		if (path.includes(".")) {
+			let subObject = object;
+			
+			for (const key of path.split(".")) {
+				subObject = (subObject as T)?.[key as K] as T;
+				
+				if (subObject === undefined)
+					break;
+			}
+			
+			return subObject;
+		}
+		
+		return object[path];
+	}
+	
+	return object;
 }
