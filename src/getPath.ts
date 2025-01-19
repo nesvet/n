@@ -1,13 +1,10 @@
-export function getPath<
-	T extends Record<string, unknown>,
-	K extends Extract<keyof T, string>
->(object: T, path: K): unknown {
+export function getPath(object: Record<string, unknown>, path: string): unknown {
 	if (path) {
 		if (path.includes(".")) {
-			let subObject = object;
+			let subObject: any = object;// eslint-disable-line @typescript-eslint/no-explicit-any
 			
 			for (const key of path.split(".")) {
-				subObject = (subObject as T)?.[key as K] as T;
+				subObject = subObject?.[key];
 				
 				if (subObject === undefined)
 					break;

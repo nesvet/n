@@ -1,7 +1,4 @@
-export function deletePath<
-	T extends Record<string, unknown>,
-	K extends Extract<keyof T, string>
->(object: T, path: K): boolean {
+export function deletePath(object: Record<string, unknown>, path: string): boolean {
 	if (object && path) {
 		if (path.includes(".")) {
 			const keys = path.split(".");

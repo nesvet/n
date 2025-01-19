@@ -1,8 +1,4 @@
-export function setPath<
-	T extends Record<string, unknown>,
-	K extends Extract<keyof T, string>,
-	V
->(object: T, path: K, value: V): null | V {
+export function setPath<V>(object: Record<string, unknown>, path: string, value: V): null | V {
 	if (object && path) {
 		if (path.includes(".")) {
 			const keys = path.split(".");
@@ -21,7 +17,7 @@ export function setPath<
 			return (subObject[keys.at(-1)!] = value);
 		}
 		
-		return (object[path] = value as T[K]) as V;
+		return (object[path] = value) as V;
 	}
 	
 	return null;
