@@ -6,6 +6,7 @@ export * from "./benchmark.js";
 export * from "./chunks.js";
 export * from "./debounce.js";
 export * from "./deepClone.js";
+export * from "./deepMerge.js";
 export * from "./deletePath.js";
 export * from "./deleteProps.js";
 export * from "./empty.js";
