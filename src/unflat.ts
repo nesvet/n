@@ -1,21 +1,18 @@
-type TheObject = Record<string, unknown>;
-
-
-export function unflat(flattenedObject: TheObject): TheObject {
+export function unflat<T extends Record<string, unknown>>(flattenedObject: T): T {
 	
-	const object: TheObject = {};
+	const object = {} as T;
 	
 	for (const key in flattenedObject)
 		if (Object.hasOwn(flattenedObject, key)) {
 			const value = flattenedObject[key];
 			
 			if (key.includes(".")) {
-				let subobject = object;
+				let subobject: any = object;// eslint-disable-line @typescript-eslint/no-explicit-any
 				const subkeys = key.split(".");
 				const valueKey = subkeys.pop() as string;
 				
 				for (const subkey of subkeys)
-					subobject = subobject[subkey] as TheObject ?? (subobject[subkey] = {});
+					subobject = (subobject[subkey] ??= {});
 				
 				subobject[valueKey] = value;
 			} else

@@ -1,4 +1,4 @@
-export function add<Item>(array: Item[], ...items: Item[]): number {
+export function add<T>(array: T[], ...items: T[]): number {
 	
 	let added = 0;
 	

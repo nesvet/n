@@ -1,8 +1,7 @@
-type ObjectWithId = { _id: string };
-
-export function _ids(iterable: ObjectWithId[] | Set<ObjectWithId>): string[] {
+export function _ids<T extends { _id: string; [key: string]: unknown }>(iterable: Set<T> | T[]): string[] {
 	if (iterable instanceof Set) {
 		const ids = [];
+		
 		for (const object of iterable)
 			ids.push(object._id);
 		

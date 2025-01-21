@@ -1,3 +1,3 @@
-export function unique<Item>(array: Item[]): Item[] {
+export function unique<T>(array: T[]): T[] {
 	return [ ...new Set(array) ];
 }

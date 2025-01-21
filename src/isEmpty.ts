@@ -1,6 +1,5 @@
 export function isEmpty(object: object) {
-	// eslint-disable-next-line guard-for-in, no-unreachable-loop
-	for (const _ in object)
+	for (const _ in object)// eslint-disable-line guard-for-in, no-unreachable-loop
 		return false;
 	
 	return true;

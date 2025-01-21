@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const timeoutsMapMap: Map<Map<any, any>, Map<any, number>> = new Map();
+const timeoutsMapMap: Map<Map<any, any>, Map<any, number>> = new Map();// eslint-disable-line @typescript-eslint/no-explicit-any
 
 export function cleanup<K, V>(map: Map<K, V>, key: K) {
 	map.delete(key);

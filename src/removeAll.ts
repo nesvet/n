@@ -1,4 +1,4 @@
-export function removeAll<Item>(array: Item[], items: Item[]): number {
+export function removeAll<T>(array: T[], items: T[]): number {
 	
 	let i,
 		removed = 0;
