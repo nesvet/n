@@ -70,7 +70,7 @@
     "./StringKey": "./dist/types/StringKey.js",
     "./Truthy": "./dist/types/Truthy.js"
   },
-  "packageManager": "bun@1.1.45",
+  "packageManager": "bun@1.2.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p ."
