@@ -1,4 +1,4 @@
-export function _ids<T extends { _id: string; [key: string]: unknown }>(iterable: Set<T> | T[]): string[] {
+export function _ids<T extends { _id: string }>(iterable: Set<T> | T[]): string[] {
 	if (iterable instanceof Set) {
 		const ids = [];
 		
