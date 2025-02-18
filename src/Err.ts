@@ -17,8 +17,8 @@ export class Err extends Error {
 		
 	}
 	
-	name = "Err-or";// eslint-disable-line unicorn/custom-error-definition
+	name = "Err-or";
 	
-	tag: null | string;
+	tag: string | null;
 	
 }
