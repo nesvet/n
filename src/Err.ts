@@ -1,6 +1,8 @@
 // eslint-disable-next-line unicorn/prevent-abbreviations, unicorn/custom-error-definition
 export class Err extends Error {
-	constructor(message: string, tag: null | string = null, payload?: object) {
+	constructor(message: string, payload?: object);
+	constructor(message: string, tag: string | null, payload?: object);
+	constructor(message: string, tag: object | string | null = null, payload?: object) {
 		super(message);
 		
 		if (tag && typeof tag == "object") {
