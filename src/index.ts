@@ -3,6 +3,7 @@ export * from "./add.js";
 export * from "./areArraysEqual.js";
 export * from "./assignPath.js";
 export * from "./benchmark.js";
+export * from "./captureStackTrace.js";
 export * from "./chunks.js";
 export * from "./cleanup.js";
 export * from "./debounce.js";
