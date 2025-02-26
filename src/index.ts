@@ -29,6 +29,7 @@ export * from "./includesAny.js";
 export * from "./intersection.js";
 export * from "./isEmpty.js";
 export * from "./isPlain.js";
+export * from "./median.js";
 export * from "./noop.js";
 export * from "./omit.js";
 export * from "./pick.js";
