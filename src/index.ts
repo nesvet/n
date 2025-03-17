@@ -27,6 +27,7 @@ export * from "./hasPath.js";
 export * from "./howmuch.js";
 export * from "./includesAll.js";
 export * from "./includesAny.js";
+export * from "./indent.js";
 export * from "./intersection.js";
 export * from "./isEmpty.js";
 export * from "./isPlain.js";
