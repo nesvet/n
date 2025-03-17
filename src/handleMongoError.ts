@@ -1,4 +1,4 @@
-import { indent } from "./indent";
+import { indent } from "./indent.js";
 
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
