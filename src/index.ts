@@ -53,5 +53,6 @@ export * from "./uid.js";
 export * from "./unflat.js";
 export * from "./union.js";
 export * from "./unique.js";
+export * from "./waitFor.js";
 export * from "./when.js";
 export * from "./without.js";
