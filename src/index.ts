@@ -21,6 +21,7 @@ export * from "./flat.js";
 export * from "./getAll.js";
 export * from "./getPath.js";
 export * from "./getWithTimeout.js";
+export * from "./handleMongoError.js";
 export * from "./hasAny.js";
 export * from "./hasPath.js";
 export * from "./howmuch.js";
