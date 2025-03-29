@@ -2,7 +2,14 @@ import { isEmpty } from "./isEmpty.js";
 import { isPlain } from "./isPlain.js";
 
 
-export function flat<T extends Record<string, unknown>>(object: T, strict = true, prefix?: string): T {
+export function flat<T extends Record<string, unknown>>(object: T, prefix?: string): T;
+export function flat<T extends Record<string, unknown>>(object: T, strict?: boolean, prefix?: string): T;
+export function flat<T extends Record<string, unknown>>(object: T, strict: boolean | string = true, prefix?: string): T {
+	if (typeof strict == "string") {
+		prefix = strict;
+		strict = true;
+	}
+	
 	const entries = Object.entries(object);
 	
 	for (let i = 0; i < entries.length; i++) {

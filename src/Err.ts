@@ -1,14 +1,29 @@
-// eslint-disable-next-line unicorn/prevent-abbreviations, unicorn/custom-error-definition
+/* eslint-disable unicorn/prevent-abbreviations, unicorn/custom-error-definition */
+
+
+type Payload = Record<string, unknown>;
+
+type PayloadWithMessage = Payload & {
+	message?: string;
+};
+
+
 export class Err extends Error {
-	constructor(message: string, payload?: object);
-	constructor(message: string, tag: string | null, payload?: object);
-	constructor(message: string, tag: object | string | null = null, payload?: object) {
-		super(message);
-		
-		if (tag && typeof tag == "object") {
+	constructor(payload: PayloadWithMessage);
+	constructor(message: string, payload?: Payload);
+	constructor(message: string, tag: string | null, payload?: Payload);
+	constructor(message: PayloadWithMessage | string, tag: Payload | string | null = null, payload?: Payload) {
+		if (typeof message == "object") {
+			payload = message;
+			message = payload.message as string ?? "";
+			delete payload.message;
+			tag = null;
+		} else if (tag && typeof tag == "object") {
 			payload = tag;
 			tag = null;
 		}
+		
+		super(message);
 		
 		this.tag = tag;
 		
