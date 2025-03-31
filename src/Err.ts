@@ -4,7 +4,7 @@
 type Payload = Record<string, unknown>;
 
 type PayloadWithMessage = Payload & {
-	message?: string;
+	message: string;
 };
 
 
@@ -15,7 +15,7 @@ export class Err extends Error {
 	constructor(message: PayloadWithMessage | string, tag: Payload | string | null = null, payload?: Payload) {
 		if (typeof message == "object") {
 			payload = message;
-			message = payload.message as string ?? "";
+			message = payload.message as string;
 			delete payload.message;
 			tag = null;
 		} else if (tag && typeof tag == "object") {
