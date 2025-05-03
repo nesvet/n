@@ -10,8 +10,8 @@ type PayloadWithMessage = Payload & {
 
 export class Err extends Error {
 	constructor(payload: PayloadWithMessage);
-	constructor(message: string, payload?: Payload);
 	constructor(message: string, tag: string | null, payload?: Payload);
+	constructor(message: string, payload?: Payload);
 	constructor(message: PayloadWithMessage | string, tag: Payload | string | null = null, payload?: Payload) {
 		if (typeof message == "object") {
 			payload = message;

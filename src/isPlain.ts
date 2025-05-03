@@ -1,4 +1,4 @@
-export function isPlain(object: object, strict = true) {
+export function isPlain(object: unknown, strict = true) {
 	return (
 		object &&
 		typeof object == "object" &&
