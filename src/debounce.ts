@@ -1,38 +1,37 @@
 import { noop } from "./noop.js";
+import { StatefulPromise } from "./StatefulPromise.js";
 
 
-type Callback<Result> = (...args: unknown[]) => Result;
+type Callback = (...args: any[]) => unknown;// eslint-disable-line @typescript-eslint/no-explicit-any
 type FunctionOrBoolean = (() => unknown) | boolean;
 type Options = { leading?: FunctionOrBoolean; maxWait?: number; trailing?: FunctionOrBoolean };
-type NumberOrUndefined = number | undefined;
 
-type DebouncedFunction<Result> = {
-	(this: unknown, ..._args: unknown[]): Promise<Result>;
+type DebouncedFunction<C extends Callback> = {
+	(this: ThisParameterType<C>, ...args: Parameters<C>): Promise<Awaited<ReturnType<C>>>;
 };
 
-export type Debounced<Result> = {
-	callback: Callback<Result>;
-	promise: {
-		isResolved: boolean;
-	} & Promise<unknown>;
-	resolve: (value: Result) => void;
-	run(): Promise<Result>;
+export type Debounced<C extends Callback, R extends ReturnType<C>> = DebouncedFunction<C> & {
+	callback: C;
+	promise: StatefulPromise<R>;
+	resolve: (value: R) => void;
+	reject: (reason?: unknown) => void;
+	run(): Promise<R>;
 	clear(shouldRun?: boolean): Promise<void>;
-} & DebouncedFunction<Result>;
+};
 
 
-export function debounce<Result>(callback: Callback<Result>, limit = 0, options: Options = {}) {
+export function debounce<C extends Callback, R extends ReturnType<C>>(callback: C, limit = 0, options: Options = {}) {
 	let { leading = false, trailing = true } = options;
 	const { maxWait = Infinity } = options;
 	
-	let timeout: NumberOrUndefined;
-	let maxWaitTimeout: NumberOrUndefined;
-	let end: NumberOrUndefined;
-	let context: unknown;
+	let timeout: ReturnType<typeof setTimeout> | undefined;
+	let maxWaitTimeout: ReturnType<typeof setTimeout> | undefined;
+	let end: number | undefined;
+	let context: ThisParameterType<C>;
 	let args: unknown[];
 	let initial: FunctionOrBoolean;
 	let final: FunctionOrBoolean;
-	let result: Result;
+	let result: R;
 	
 	const expired = async () => {
 		
@@ -41,11 +40,15 @@ export function debounce<Result>(callback: Callback<Result>, limit = 0, options:
 		if (n >= end!) {
 			timeout = undefined;
 			end = undefined;
+			
 			clearTimeout(maxWaitTimeout);
+			maxWaitTimeout = undefined;
+			
 			if (typeof final == "function")
 				await final();
+			
 			debounced.resolve(result);
-			debounced.promise.isResolved = true;
+			
 			initial = leading;
 		} else {
 			clearTimeout(timeout);
@@ -58,13 +61,23 @@ export function debounce<Result>(callback: Callback<Result>, limit = 0, options:
 		
 		if (final === run)
 			final = false;
+		
 		run();
+		
 		maxWaitTimeout = setTimeout(maxWaitExpired as TimerHandler, maxWait);
 		
 	} : null;
 	
 	async function run() {
-		return (result = await callback.apply(context, args));
+		try {
+			result = await callback.apply(context, args) as R;
+			
+			return result;
+		} catch (error) {
+			debounced.reject(error);
+			
+			throw error;
+		}
 	}
 	
 	if (leading && typeof leading == "boolean")
@@ -75,41 +88,42 @@ export function debounce<Result>(callback: Callback<Result>, limit = 0, options:
 		trailing = run;
 	final = trailing;
 	
-	const debounced: Debounced<Result> = Object.assign(function (..._args) {
+	const debounced: Debounced<C, R> = Object.assign(function (..._args) {
 		args = _args;
 		context = this;// eslint-disable-line no-invalid-this
 		
 		end = Date.now() + limit;
 		final = trailing;
 		
-		if (debounced.promise.isResolved)
-			debounced.promise = Object.assign(new Promise(resolve => {
+		if (!debounced.promise.isPending)
+			debounced.promise = new StatefulPromise<R>((resolve, reject) => {
 				debounced.resolve = resolve;
+				debounced.reject = reject;
 				
 				if (typeof initial == "function") {
 					initial();
+					
 					initial = false;
+					
 					if (final === run)
 						final = false;
 				}
 				
 				if (!timeout) {
 					timeout = setTimeout(expired, limit);
+					
 					if (maxWaitExpired)
 						maxWaitTimeout = setTimeout(maxWaitExpired, maxWait);
 				}
 				
-			}), {
-				isResolved: false
 			});
 		
 		return debounced.promise;
-	} as DebouncedFunction<Result>, {
+	} as DebouncedFunction<C>, {
 		callback,
-		promise: Object.assign(Promise.resolve(), {
-			isResolved: true
-		}),
+		promise: StatefulPromise.resolved(undefined as unknown as R),
 		resolve: noop,
+		reject: noop,
 		run,
 		clear: async (shouldRun?: boolean) => {
 			
@@ -117,8 +131,8 @@ export function debounce<Result>(callback: Callback<Result>, limit = 0, options:
 			timeout = undefined;
 			
 			clearTimeout(maxWaitTimeout);
+			maxWaitTimeout = undefined;
 			
-			debounced.promise.isResolved = true;
 			debounced.resolve(shouldRun ? await run() : result);
 			
 		}
@@ -130,16 +144,15 @@ export function debounce<Result>(callback: Callback<Result>, limit = 0, options:
 
 debounce.noop = Object.assign(() => { /**/ }, {
 	callback: noop,
-	promise: Object.assign(Promise.resolve(), {
-		isResolved: true
-	}),
+	promise: StatefulPromise.resolved(undefined), // eslint-disable-line unicorn/no-useless-undefined
 	resolve: noop,
+	reject: noop,
 	run: noop,
 	clear: noop
-}) as unknown as Debounced<void>;
+}) as Debounced<() => void, void>;
 
 
-export function throttle<Result>(callback: Callback<Result>, limit?: number, options?: Options) {
+export function throttle(callback: Callback, limit?: number, options?: Options) {
 	return debounce(callback, limit, {
 		maxWait: limit,
 		leading: true,
