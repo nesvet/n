@@ -73,6 +73,7 @@
     "./isTruly": "./dist/types/isTruthy.js",
     "./isTruely": "./dist/types/isTruthy.js",
     "./Mutable": "./dist/types/Mutable.js",
+    "./Project": "./dist/types/Project.js",
     "./StringKey": "./dist/types/StringKey.js",
     "./Truthy": "./dist/types/Truthy.js"
   },
@@ -152,6 +153,7 @@
     "isTruly",
     "isTruely",
     "Mutable",
+    "Project",
     "StringKey",
     "Truthy",
     "Truely"
