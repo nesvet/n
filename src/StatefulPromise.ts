@@ -4,12 +4,19 @@ type Value<T> = PromiseLike<T> | T;
 type Resolve<T> = (value: Value<T>) => void;
 type Reject = (reason?: any) => void;
 
+type Options = {
+	signal?: AbortSignal;
+	timeout?: number;
+};
+
 const nativesMap = new WeakMap<StatefulPromise<any>, { resolve: Resolve<any>; reject: Reject }>();
 
 
 export class StatefulPromise<T> extends Promise<T> {
-	constructor(executor?: (resolve: Resolve<T>, reject: Reject) => void) {
-		
+	constructor(
+		executor?: (resolve: Resolve<T>, reject: Reject) => void,
+		options?: Options
+	) {
 		let nativeResolve: Resolve<T>;
 		let nativeReject: Reject;
 		
@@ -21,6 +28,23 @@ export class StatefulPromise<T> extends Promise<T> {
 		
 		nativesMap.set(this, { resolve: nativeResolve!, reject: nativeReject! });
 		
+		if (options?.signal)
+			if (options.signal.aborted)
+				this.reject(new DOMException("Aborted", "AbortError"));
+			else {
+				const abortListener = () => this.reject(new DOMException("Aborted", "AbortError"));
+				
+				options.signal.addEventListener("abort", abortListener);
+				
+				this.finally(() => options.signal?.removeEventListener("abort", abortListener));
+			}
+		
+		if (typeof options?.timeout === "number" && Number.isFinite(options.timeout)) {
+			const timeout = setTimeout(() => this.reject(new DOMException("Timeout exceeded", "TimeoutError")), options.timeout);
+			
+			this.finally(() => clearTimeout(timeout));
+		}
+		
 		executor?.(this.resolve, this.reject);
 		
 	}
@@ -31,9 +55,9 @@ export class StatefulPromise<T> extends Promise<T> {
 	
 	state: "fulfilled" | "pending" | "rejected" = "pending";
 	
-	result?: any;
+	result?: T | unknown;
 	
-	resolve = (value: Value<T>) => {
+	readonly resolve = (value: Value<T>) => {
 		
 		if (this.isPending) {
 			this.isPending = false;
@@ -51,7 +75,7 @@ export class StatefulPromise<T> extends Promise<T> {
 		
 	};
 	
-	reject = (reason?: any) => {
+	readonly reject = (reason?: any) => {
 		
 		if (this.isPending) {
 			this.isPending = false;
@@ -68,5 +92,14 @@ export class StatefulPromise<T> extends Promise<T> {
 		}
 		
 	};
+	
+	
+	static resolved<U>(value: U): StatefulPromise<U> {
+		return new StatefulPromise<U>(resolve => resolve(value));
+	}
+	
+	static rejected(reason: unknown): StatefulPromise<never> {
+		return new StatefulPromise((_, reject) => reject(reason));
+	}
 	
 }
