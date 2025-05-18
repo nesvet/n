@@ -15,10 +15,6 @@ type MongoServerError = {
 	[key: string]: any;
 };
 
-function makeMessageFromDocumentFailedValidationErrorResponse(errorResponse: MongoServerError["errorResponse"]) {
-	return `${indent(`failingDocumentId: ${errorResponse.errInfo?.failingDocumentId}\nschemaRulesNotSatisfied: ${JSON.stringify(errorResponse.errInfo?.details?.schemaRulesNotSatisfied, null, "  ")}`, "  ")}`;
-}
-
 export function handleMongoError<E extends MongoServerError>(error: E): E;
 export function handleMongoError(error: any): any;
 export function handleMongoError(error: any) {
@@ -29,7 +25,16 @@ export function handleMongoError(error: any) {
 				.filter((errorResponse: MongoServerError["errorResponse"]) => errorResponse.errmsg === "Document failed validation");
 		
 		if (documentFailedValidationResponses.length)
-			error.message += `\n${documentFailedValidationResponses.map(makeMessageFromDocumentFailedValidationErrorResponse).join("\n")}`;
+			error.message += `\n${
+				documentFailedValidationResponses.map(
+					(errorResponse: MongoServerError["errorResponse"]) =>
+						indent(
+							`failingDocumentId: ${errorResponse.errInfo?.failingDocumentId}\n` +
+							`schemaRulesNotSatisfied: ${JSON.stringify(errorResponse.errInfo?.details?.schemaRulesNotSatisfied, null, "  ")}`,
+							"  "
+						)
+				).join("\n")
+			}`;
 		
 		error.isMongoServerError = true;
 	} catch {}
