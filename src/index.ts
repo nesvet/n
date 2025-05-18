@@ -35,6 +35,7 @@ export * from "./median.js";
 export * from "./noop.js";
 export * from "./omit.js";
 export * from "./pick.js";
+export * from "./Projector.js";
 export * from "./random.js";
 export * from "./randomItem.js";
 export * from "./reAdd.js";
