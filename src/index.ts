@@ -41,6 +41,7 @@ export * from "./randomItem.js";
 export * from "./reAdd.js";
 export * from "./removeAll.js";
 export * from "./removeOne.js";
+export * from "./roundTo.js";
 export * from "./setPath.js";
 export * from "./setWithTimeout.js";
 export * from "./sleep.js";
